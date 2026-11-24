@@ -4,6 +4,13 @@ import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
 
+import martidi.sunnmore.glenn.GlennEntities;
+import martidi.sunnmore.glenn.GlennItems;
+import martidi.sunnmore.glenn.GlennLoyalty;
+import martidi.sunnmore.jinith.JinithEntities;
+import martidi.sunnmore.visits.FriendVisits;
+import martidi.sunnmore.visits.LureBlocks;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +28,13 @@ public class Sunnmore implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		GlennEntities.register();
+		GlennItems.register();
+		GlennLoyalty.register();
+		JinithEntities.register();
+		LureBlocks.register();
+		FriendVisits.register();
+		LOGGER.info("Sunnmore loaded");
 	}
 
 	public static Identifier id(String path) {

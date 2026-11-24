@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:flower_pot",
+    "minecraft:fern",
+    "minecraft:bone_meal"
+  ],
+  "result": {
+    "id": "sunnmore:glenns_plante"
+  }
+}

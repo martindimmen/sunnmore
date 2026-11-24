@@ -1,0 +1,25 @@
+{
+  "parent": "sunnmore:glenn/yppa_du_eller",
+  "criteria": {
+    "ten_trades": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "sunnmore:ginger_wig"
+    },
+    "title": {
+      "translate": "advancements.sunnmore.glenn.stamkunde.title"
+    },
+    "description": {
+      "translate": "advancements.sunnmore.glenn.stamkunde.description"
+    },
+    "frame": "goal"
+  },
+  "requirements": [
+    [
+      "ten_trades"
+    ]
+  ]
+}

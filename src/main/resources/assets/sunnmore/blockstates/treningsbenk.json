@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sunnmore:block/treningsbenk"
+    },
+    "facing=east": {
+      "model": "sunnmore:block/treningsbenk",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sunnmore:block/treningsbenk",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sunnmore:block/treningsbenk",
+      "y": 270
+    }
+  }
+}

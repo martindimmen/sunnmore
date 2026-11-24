@@ -3,6 +3,7 @@
 	"package": "martidi.sunnmore.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"EndermanMixin",
 		"ExampleMixin"
 	],
 	"injectors": {

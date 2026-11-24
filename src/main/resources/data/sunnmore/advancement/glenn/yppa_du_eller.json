@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "met": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:sugar"
+    },
+    "title": {
+      "translate": "advancements.sunnmore.glenn.yppa_du_eller.title"
+    },
+    "description": {
+      "translate": "advancements.sunnmore.glenn.yppa_du_eller.description"
+    }
+  },
+  "requirements": [
+    [
+      "met"
+    ]
+  ]
+}

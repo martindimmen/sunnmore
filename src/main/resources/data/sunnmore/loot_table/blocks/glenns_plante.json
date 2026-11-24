@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sunnmore:glenns_plante"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "sunnmore:blocks/glenns_plante"
+}
