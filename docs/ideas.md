@@ -11,3 +11,9 @@ Decided so far (Martin, 2026-11-24):
 
 Still open: which other items, and whether they are fair or overpowered.
 - Other ideas floated (not decided): Proteinshake, Førstehjelp, Hjelm (night vision + water breathing), Magnet, Ryggsekk.
+
+## A fancier church for Stian
+Martin's idea (2026-11-25): once the simple church works, let Stian build the church part of **Hilltop Abbey** by an author on Planet Minecraft: https://www.planetminecraft.com/project/hilltop-abbey/ ("pretty advanced").
+- When we searched, the page said the author couldn't share the schematic yet, so it may not be downloadable.
+- The repo is public, so we need the author's permission to include it, and we credit them.
+- Stian's church is a drawing in a data file (see `docs/stian-design.md`), so a second church means a second drawing, converted from the schematic and switched to simpler materials.
