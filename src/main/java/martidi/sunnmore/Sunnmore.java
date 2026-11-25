@@ -9,6 +9,8 @@ import martidi.sunnmore.glenn.GlennEntities;
 import martidi.sunnmore.glenn.GlennItems;
 import martidi.sunnmore.glenn.GlennLoyalty;
 import martidi.sunnmore.jinith.JinithEntities;
+import martidi.sunnmore.stian.StianChurch;
+import martidi.sunnmore.stian.StianItems;
 import martidi.sunnmore.visits.FriendVisits;
 import martidi.sunnmore.visits.LureBlocks;
 
@@ -34,6 +36,8 @@ public class Sunnmore implements ModInitializer {
 		GlennLoyalty.register();
 		JinithEntities.register();
 		BardEntities.register();
+		StianItems.register();
+		StianChurch.register();
 		LureBlocks.register();
 		FriendVisits.register();
 		LOGGER.info("Sunnmore loaded");

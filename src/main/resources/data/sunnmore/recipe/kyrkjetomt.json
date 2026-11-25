@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:chest",
+    "minecraft:birch_sign",
+    "minecraft:compass"
+  ],
+  "result": {
+    "id": "sunnmore:kyrkjetomt"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sunnmore:block/kyrkjetomt"
+    },
+    "facing=east": {
+      "model": "sunnmore:block/kyrkjetomt",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sunnmore:block/kyrkjetomt",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sunnmore:block/kyrkjetomt",
+      "y": 270
+    }
+  }
+}

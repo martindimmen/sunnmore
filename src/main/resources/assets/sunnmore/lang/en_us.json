@@ -115,5 +115,14 @@
   "chat.sunnmore.bard.vaermelding": "Værmelding",
   "chat.sunnmore.bard.bought_brod.0": "Heimebakt i dag tidleg. Kos dej!",
   "chat.sunnmore.bard.bought_brod.1": "Beste brødet på Sunnmøre, altso.",
-  "block.sunnmore.vaerstasjon": "Værstasjon"
+  "block.sunnmore.vaerstasjon": "Værstasjon",
+  "item.sunnmore.bjorneunge": "Bjørneunge",
+  "item.sunnmore.bjorneunge.lore": "Ein kald Isbjørn. Skål!",
+  "block.sunnmore.kyrkjetomt": "Kyrkjetomt",
+  "block.sunnmore.kyrkjetomt.lore": "Fyll han med material, so bygge Stian kyrkja.",
+  "container.sunnmore.kyrkjetomt": "Kyrkjetomt",
+  "chat.sunnmore.kyrkjetomt.missing": "Det manglar: %s.",
+  "chat.sunnmore.kyrkjetomt.blocked": "%s blokker står i vegen, mellom anna ved %s.",
+  "chat.sunnmore.kyrkjetomt.ready": "Alt e på plass. No manglar berre Stian.",
+  "chat.sunnmore.kyrkjetomt.finished": "Kyrkja e ferdig!"
 }

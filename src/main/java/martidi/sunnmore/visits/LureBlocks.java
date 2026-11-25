@@ -1,6 +1,7 @@
 package martidi.sunnmore.visits;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
@@ -18,11 +19,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 
 import martidi.sunnmore.Sunnmore;
 import martidi.sunnmore.glenn.GlennItems;
+import martidi.sunnmore.stian.KyrkjetomtBlock;
+import martidi.sunnmore.stian.KyrkjetomtBlockEntity;
 
 /**
  * The lure blocks. Placed near players, they make their friend visit far more often, and visit
@@ -38,6 +42,14 @@ public final class LureBlocks {
 	public static final Block VAERSTASJON = registerBlock("vaerstasjon", VaerstasjonBlock::new,
 		BlockBehaviour.Properties.of().strength(1.0F).noOcclusion().sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
 
+	/** Stian's church plot: holds the materials, and the church is built behind it. */
+	public static final Block KYRKJETOMT = registerBlock("kyrkjetomt", KyrkjetomtBlock::new,
+		BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD).noOcclusion());
+
+	public static final BlockEntityType<KyrkjetomtBlockEntity> KYRKJETOMT_ENTITY = Registry.register(
+		BuiltInRegistries.BLOCK_ENTITY_TYPE, Sunnmore.id("kyrkjetomt"),
+		new BlockEntityType<>(KyrkjetomtBlockEntity::new, Set.of(KYRKJETOMT)));
+
 	public static final Item GLENNS_PLANTE_ITEM = registerItem("glenns_plante", GLENNS_PLANTE,
 		new Item.Properties().component(DataComponents.LORE,
 			new ItemLore(List.of(Component.translatable("block.sunnmore.glenns_plante.lore")))));
@@ -46,10 +58,14 @@ public final class LureBlocks {
 
 	public static final Item VAERSTASJON_ITEM = registerItem("vaerstasjon", VAERSTASJON, new Item.Properties());
 
+	public static final Item KYRKJETOMT_ITEM = registerItem("kyrkjetomt", KYRKJETOMT, new Item.Properties()
+		.component(DataComponents.LORE, new ItemLore(List.of(Component.translatable("block.sunnmore.kyrkjetomt.lore")))));
+
 	/** One "seat" each, searched within 1 block: we only need to know where the lures are. */
 	public static final PoiType GLENN_LURE = PoiHelper.register(Sunnmore.id("glenn_lure"), 1, 1, GLENNS_PLANTE);
 	public static final PoiType JINITH_LURE = PoiHelper.register(Sunnmore.id("jinith_lure"), 1, 1, TRENINGSBENK);
 	public static final PoiType BARD_LURE = PoiHelper.register(Sunnmore.id("bard_lure"), 1, 1, VAERSTASJON);
+	public static final PoiType STIAN_LURE = PoiHelper.register(Sunnmore.id("stian_lure"), 1, 1, KYRKJETOMT);
 
 	private LureBlocks() {
 	}
@@ -60,6 +76,7 @@ public final class LureBlocks {
 			output.accept(GLENNS_PLANTE_ITEM);
 			output.accept(TRENINGSBENK_ITEM);
 			output.accept(VAERSTASJON_ITEM);
+			output.accept(KYRKJETOMT_ITEM);
 		});
 	}
 
