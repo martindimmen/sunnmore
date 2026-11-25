@@ -101,6 +101,10 @@ Glenn loves clicking around with a Wago, the clicky lever connector electricians
   - Glenndermans Wago has a yellow name (uncommon rarity) and its own lore line.
 - **Left out for now:** Glenn reacting when someone near him gets pinched.
 
+**Built** on 2026-11-25:
+- **Code:** `WagoItem`, `WagoMath`, `WagoDamage` and the rare deal in `GlennTrades.rollLineup`.
+- **Discount:** the Stamkunde discount checks the item you pay with (`GlennTrades.discountApplies`).
+
 ## Where to change things
 - **Chat lines, item names and advancement texts:** `src/main/resources/assets/sunnmore/lang/en_us.json`. If you add a line to a pool, also raise that pool's count in `GlennLines.Pool`.
 - **Deals and prices:** `GlennTrades`.

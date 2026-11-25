@@ -38,5 +38,5 @@ A Fabric mod for Minecraft 26.3, built around Martin's friends from Sunnmøre. E
 
 ## Don't
 - Change another friend's behaviour or lines without Martin's say-so.
-- Make anything that destroys players' blocks, items or armour, or kills them unexpectedly. Effects are visual-only or capped (see the friends' anti-goals).
+- Make anything that destroys players' blocks, items or armour, or kills them unexpectedly. Effects are visual-only or capped (see the friends' anti-goals). The one exception is the Wago pinch, which can kill a player on low health. That is Martin's call (see `docs/glenn-design.md`), so don't "fix" it.
 - Print secrets (RCON passwords, tokens).
