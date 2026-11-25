@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/nether_portal_ew",
+  "textures": {
+    "particle": "sunnmore:block/jopa_portal",
+    "portal": "sunnmore:block/jopa_portal"
+  }
+}

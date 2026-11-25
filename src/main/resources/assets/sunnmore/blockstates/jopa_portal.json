@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "sunnmore:block/jopa_portal_ns"
+    },
+    "axis=z": {
+      "model": "sunnmore:block/jopa_portal_ew"
+    }
+  }
+}

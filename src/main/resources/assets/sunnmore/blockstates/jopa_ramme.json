@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "sunnmore:block/jopa_ramme"
+    },
+    "lit=true": {
+      "model": "sunnmore:block/jopa_ramme_lit"
+    }
+  }
+}

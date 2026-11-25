@@ -17,6 +17,8 @@ public final class JopaLobby {
 	public record Cell(int x, int y, int z, Part part) {
 	}
 
+	/** The lobby floor's height in the JOPA dimension; the lobby is centred on x = 0, z = 0. */
+	public static final int ORIGIN_Y = 64;
 	/** The walls stand at x and z = -HALF and +HALF. */
 	public static final int HALF = 5;
 	/** The floor is y = 0, the roof y = HEIGHT. */
