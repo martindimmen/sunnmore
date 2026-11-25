@@ -1,0 +1,281 @@
+{
+  "_comment": [
+    "Stian's church. One grid per layer (y, bottom first); in each grid, row = z (0 is the front, where the door is), column = x.",
+    "'.' = leave as it is (must be air or a soft plant before building). 'last' blocks need support and are built after everything else.",
+    "Blueprint north is the front; the game rotates it so the front faces the player who placed the Kyrkjetomt."
+  ],
+  "legend": {
+    "C": {
+      "block": "minecraft:cobblestone",
+      "item": "minecraft:cobblestone",
+      "last": false
+    },
+    "P": {
+      "block": "minecraft:birch_planks",
+      "item": "minecraft:birch_planks",
+      "last": false
+    },
+    "L": {
+      "block": "minecraft:birch_log[axis=y]",
+      "item": "minecraft:birch_log",
+      "last": false
+    },
+    "G": {
+      "block": "minecraft:glass_pane",
+      "item": "minecraft:glass_pane",
+      "last": false
+    },
+    "E": {
+      "block": "minecraft:cobblestone_stairs[facing=east,half=bottom]",
+      "item": "minecraft:cobblestone_stairs",
+      "last": false
+    },
+    "W": {
+      "block": "minecraft:cobblestone_stairs[facing=west,half=bottom]",
+      "item": "minecraft:cobblestone_stairs",
+      "last": false
+    },
+    "S": {
+      "block": "minecraft:cobblestone_stairs[facing=south,half=bottom]",
+      "item": "minecraft:cobblestone_stairs",
+      "last": false
+    },
+    "N": {
+      "block": "minecraft:cobblestone_stairs[facing=north,half=bottom]",
+      "item": "minecraft:cobblestone_stairs",
+      "last": false
+    },
+    "#": {
+      "block": "minecraft:cobblestone_wall",
+      "item": "minecraft:cobblestone_wall",
+      "last": false
+    },
+    "B": {
+      "block": "minecraft:birch_stairs[facing=north,half=bottom]",
+      "item": "minecraft:birch_stairs",
+      "last": false
+    },
+    "D": {
+      "block": "minecraft:birch_door[facing=south,half=lower,hinge=left,open=false]",
+      "item": "minecraft:birch_door",
+      "last": true
+    },
+    "d": {
+      "block": "minecraft:birch_door[facing=south,half=upper,hinge=left,open=false]",
+      "item": null,
+      "last": true
+    },
+    "O": {
+      "block": "minecraft:lantern[hanging=true]",
+      "item": "minecraft:lantern",
+      "last": true
+    },
+    "T": {
+      "block": "minecraft:wall_torch[facing=east]",
+      "item": "minecraft:torch",
+      "last": true
+    },
+    "t": {
+      "block": "minecraft:wall_torch[facing=west]",
+      "item": "minecraft:torch",
+      "last": true
+    }
+  },
+  "layers": [
+    [
+      "CCCCCCC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CPPPPPC",
+      "CCCCCCC"
+    ],
+    [
+      "LPPDPPL",
+      "P.....P",
+      "P.....P",
+      "PBB.BBP",
+      "P.....P",
+      "PBB.BBP",
+      "P.....P",
+      "PBB.BBP",
+      "P.....P",
+      "P..P..P",
+      "LPPPPPL"
+    ],
+    [
+      "LPPdPPL",
+      "P.....P",
+      "P.....P",
+      "G.....G",
+      "P.....P",
+      "G.....G",
+      "P.....P",
+      "G.....G",
+      "P.....P",
+      "P.....P",
+      "LPPGPPL"
+    ],
+    [
+      "LPPPPPL",
+      "P.....P",
+      "P.....P",
+      "G.....G",
+      "PT...tP",
+      "G.....G",
+      "PT...tP",
+      "G.....G",
+      "P.....P",
+      "P.....P",
+      "LPPGPPL"
+    ],
+    [
+      "LPPGPPL",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "P.....P",
+      "LPPPPPL"
+    ],
+    [
+      "EPLPLPW",
+      "E.P.P.W",
+      "E.LPL.W",
+      "E.....W",
+      "E.....W",
+      "E.....W",
+      "E.....W",
+      "E.....W",
+      "E.....W",
+      "E.....W",
+      "EPPPPPW"
+    ],
+    [
+      ".ELPLW.",
+      ".EP.PW.",
+      ".ELPLW.",
+      ".E...W.",
+      ".E...W.",
+      ".E...W.",
+      ".E...W.",
+      ".E...W.",
+      ".E...W.",
+      ".E...W.",
+      ".EPPPW."
+    ],
+    [
+      "..LPL..",
+      "..P.P..",
+      "..LPL..",
+      "..E.W..",
+      "..E.W..",
+      "..E.W..",
+      "..E.W..",
+      "..E.W..",
+      "..E.W..",
+      "..E.W..",
+      "..EPW.."
+    ],
+    [
+      "..LPL..",
+      "..P.P..",
+      "..LPL..",
+      "...C...",
+      "...C...",
+      "...C...",
+      "...C...",
+      "...C...",
+      "...C...",
+      "...C...",
+      "...C..."
+    ],
+    [
+      "..LPL..",
+      "..P.P..",
+      "..LPL..",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ],
+    [
+      "..L.L..",
+      "...O...",
+      "..L.L..",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ],
+    [
+      "..CCC..",
+      "..CCC..",
+      "..CCC..",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ],
+    [
+      "..ESW..",
+      "..ECW..",
+      "..ENW..",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ],
+    [
+      ".......",
+      "...C...",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ],
+    [
+      ".......",
+      "...#...",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      ".......",
+      "......."
+    ]
+  ]
+}
