@@ -35,15 +35,21 @@ public final class LureBlocks {
 	public static final Block TRENINGSBENK = registerBlock("treningsbenk", TreningsbenkBlock::new,
 		BlockBehaviour.Properties.of().strength(1.5F).noOcclusion().sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
 
+	public static final Block VAERSTASJON = registerBlock("vaerstasjon", VaerstasjonBlock::new,
+		BlockBehaviour.Properties.of().strength(1.0F).noOcclusion().sound(SoundType.METAL).pushReaction(PushReaction.POPPED));
+
 	public static final Item GLENNS_PLANTE_ITEM = registerItem("glenns_plante", GLENNS_PLANTE,
 		new Item.Properties().component(DataComponents.LORE,
 			new ItemLore(List.of(Component.translatable("block.sunnmore.glenns_plante.lore")))));
 
 	public static final Item TRENINGSBENK_ITEM = registerItem("treningsbenk", TRENINGSBENK, new Item.Properties());
 
+	public static final Item VAERSTASJON_ITEM = registerItem("vaerstasjon", VAERSTASJON, new Item.Properties());
+
 	/** One "seat" each, searched within 1 block: we only need to know where the lures are. */
 	public static final PoiType GLENN_LURE = PoiHelper.register(Sunnmore.id("glenn_lure"), 1, 1, GLENNS_PLANTE);
 	public static final PoiType JINITH_LURE = PoiHelper.register(Sunnmore.id("jinith_lure"), 1, 1, TRENINGSBENK);
+	public static final PoiType BARD_LURE = PoiHelper.register(Sunnmore.id("bard_lure"), 1, 1, VAERSTASJON);
 
 	private LureBlocks() {
 	}
@@ -53,6 +59,7 @@ public final class LureBlocks {
 		CreativeModeTabEvents.modifyOutputEvent(GlennItems.SUNNMORE_TAB_KEY).register(output -> {
 			output.accept(GLENNS_PLANTE_ITEM);
 			output.accept(TRENINGSBENK_ITEM);
+			output.accept(VAERSTASJON_ITEM);
 		});
 	}
 

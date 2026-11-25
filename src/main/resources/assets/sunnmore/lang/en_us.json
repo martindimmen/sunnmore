@@ -114,5 +114,6 @@
   "item.sunnmore.heimebakt_brod.lore": "Heimebakt. Berre det beste.",
   "chat.sunnmore.bard.vaermelding": "Værmelding",
   "chat.sunnmore.bard.bought_brod.0": "Heimebakt i dag tidleg. Kos dej!",
-  "chat.sunnmore.bard.bought_brod.1": "Beste brødet på Sunnmøre, altso."
+  "chat.sunnmore.bard.bought_brod.1": "Beste brødet på Sunnmøre, altso.",
+  "block.sunnmore.vaerstasjon": "Værstasjon"
 }
