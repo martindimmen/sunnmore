@@ -136,4 +136,15 @@ The joke is about the building hobby and the beer, not about faith.
 - Whether a stopped build resumes after a server restart (it should: progress can be worked out from which church blocks are already in place).
 
 ## Where to change things
-(Filled in when built: the church drawing, lines, timers, recipe and textures.)
+- **The church:** `src/main/resources/data/sunnmore/church/stian_kyrkje.json`. One text grid per layer (bottom first), one row per depth step (row 0 is the front), and a legend from symbol to block state and item. Blocks that need support (torches, lantern, door) are marked `"last": true` and built last. The materials list follows from the drawing; `ChurchBlueprintTest.materialsMatchTheDesign` pins today's numbers, so update it when you change the church.
+- **Chat lines and plot messages:** `en_us.json`, keys `chat.sunnmore.stian.*` and `chat.sunnmore.kyrkjetomt.*`. If you add a line to a pool, raise its count in `StianLines.Pool`; `LangKeysTest` checks every key exists.
+- **Speeds and timers:** `StianMath`: block every 10 ticks (5 with beer), 50 blocks per Bjørneunge, 1 in 20 mistakes, the hiccup, trip, puff and røykepause timers, the 3-second can cooldown and the 32-block plot search.
+- **How he builds:** `goal/BuildChurchGoal` (finding a plot, standing outside the church, reach 16, saying what is missing or in the way). The world side, which places blocks, checks what is in the way and never builds into a creature, is `ChurchSite`.
+- **Recipes:** `data/sunnmore/recipe/bjorneunge.json` (iron nugget + wheat + sugar) and `kyrkjetomt.json` (chest + birch sign + compass).
+- **The can he throws:** `ThrownBjorneunge` (no damage, a push of 0.5, disappears on impact).
+- **Body and textures:** the shape and poses are in `StianModel` (128×64; the UV layout is in its comment). Skin: `textures/entity/stian/stian.png`; the Bjørneunge icon: `textures/item/bjorneunge.png`.
+
+## Built
+Built on 2026-11-25 from `docs/superpowers/plans/2026-11-25-stian.md`. Changes during the build:
+- He builds from outside the church: he got stuck inside it.
+- He never places a block where a player or mob is standing.

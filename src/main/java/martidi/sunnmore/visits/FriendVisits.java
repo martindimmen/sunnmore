@@ -39,14 +39,15 @@ import martidi.sunnmore.bard.BardEntities;
 import martidi.sunnmore.glenn.GlennEntities;
 import martidi.sunnmore.glenn.GlennTrades;
 import martidi.sunnmore.jinith.JinithEntities;
+import martidi.sunnmore.stian.StianEntities;
 
 import org.jspecify.annotations.Nullable;
 
 /**
  * The friends drop by now and then, like the wandering trader: daytime only, about once a week
- * near a random player. A lure block (Glenns Plante, Treningsbenk, Værstasjon) near a player gives a 50% chance
+ * near a random player. A lure block (Glenns Plante, Treningsbenk, Værstasjon, Kyrkjetomt) near a player gives a 50% chance
  * each in-game morning that its friend comes to the lure instead. A visit lasts two days unless he
- * gets a name tag. /glennvisit, /jinithvisit and /bardvisit force a visit for testing.
+ * gets a name tag. /glennvisit, /jinithvisit, /bardvisit and /stianvisit force a visit for testing.
  */
 public final class FriendVisits {
 	private static final int NATURAL_RADIUS = 48;
@@ -78,6 +79,7 @@ public final class FriendVisits {
 	public static final AttachmentType<VisitState> GLENN_STATE = state("glenn_visits");
 	public static final AttachmentType<VisitState> JINITH_STATE = state("jinith_visits");
 	public static final AttachmentType<VisitState> BARD_STATE = state("bard_visits");
+	public static final AttachmentType<VisitState> STIAN_STATE = state("stian_visits");
 
 	private static final List<Friend> FRIENDS = new ArrayList<>();
 
@@ -89,6 +91,7 @@ public final class FriendVisits {
 		FRIENDS.add(new Friend("glenn", GlennEntities.GLENNDERMAN, GLENN_STATE, LureBlocks.GLENN_LURE));
 		FRIENDS.add(new Friend("jinith", JinithEntities.JINITH, JINITH_STATE, LureBlocks.JINITH_LURE));
 		FRIENDS.add(new Friend("bard", BardEntities.BARD, BARD_STATE, LureBlocks.BARD_LURE));
+		FRIENDS.add(new Friend("stian", StianEntities.STIAN, STIAN_STATE, LureBlocks.STIAN_LURE));
 		ServerTickEvents.END_LEVEL_TICK.register(FriendVisits::tick);
 		CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) -> {
 			for (Friend friend : FRIENDS) {

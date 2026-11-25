@@ -51,8 +51,8 @@ Copy each piece from Bård's version and change the names. "Shared" files only g
 
   Write new lines from the new friend's own joke.
 - **Their own currency and their own hit reaction.** Taken so far:
-  - currencies: sugar (Glenn), diamonds (Bård)
-  - hit reactions: hop away (Glenn), beat you to half a heart (Jinith), lightning (Bård)
+  - currencies: sugar (Glenn), diamonds (Bård), building materials and Bjørneunge (Stian)
+  - hit reactions: hop away (Glenn), beat you to half a heart (Jinith), lightning (Bård), throws his can (Stian)
 - **Never wreck anyone's stuff.** Effects are visual-only or capped. Jinith skips armor and never kills; Bård's lightning never lands on copper or lightning rods. Check vanilla side effects (fire, block changes, redstone) in the 26.3 sources before using a vanilla effect.
 - **Multiplayer:** the server decides everything. Anything the client must draw (poses, colours) is a synced `EntityDataAccessor` flag.
 - **Leave the other friends alone:** no changes to their behaviour or lines unless the person who owns them (Martin) asks.
