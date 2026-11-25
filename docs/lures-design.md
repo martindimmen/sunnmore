@@ -10,6 +10,7 @@ Martin wants the friends to show up more often, and in a place the players choos
 |---|---|---|---|---|
 | **Glenns Plante** | Glenn | A flower pot with a bushy green plant with jagged leaves (the classic weed-leaf shape, Minecraft-style) | flower pot + fern + bone meal (shapeless) | "Berre krydder, lova." |
 | **Treningsbenk** | Jinith | A low weight bench with a barbell resting on top | 3 iron ingots on the top row, 3 planks (any wood) on the middle row | (none) |
+| **Værstasjon** (added with Bård, 2026-11-25) | Bård | A small weather station: a pole with three cups on arms and a red tip | lightning rod + compass (shapeless) | (none) |
 
 Both are small, decorative blocks (not full cubes), mined by hand, and they drop themselves.
 

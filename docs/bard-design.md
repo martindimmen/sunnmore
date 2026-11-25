@@ -1,6 +1,14 @@
 # Bård (third Sunnmøre friend)
 
-Approved by Martin on 2026-11-25 ("yes have this design"). The code will live in `martidi.sunnmore.bard` (client: `martidi.sunnmore.client.bard`), next to `glenn` and `jinith`. In code and ids he is `bard` (no å); everything players see says **Bård**.
+Approved by Martin on 2026-11-25 ("yes have this design") and built the same day. The code lives in `martidi.sunnmore.bard` (client: `martidi.sunnmore.client.bard`), next to `glenn` and `jinith`. In code and ids he is `bard` (no å); everything players see says **Bård**. The build plan is in `docs/superpowers/plans/2026-11-25-bard.md`.
+
+## Where to change things
+- **Chat lines, item names and the death message:** `src/main/resources/assets/sunnmore/lang/en_us.json`, keys `chat.sunnmore.bard.*`. If you add a line to a pool, raise that pool's count in `BardLines.Pool`. The forecast is built from `chat.sunnmore.bard.forecast.<now>_to_<next>` plus `chat.sunnmore.bard.time.*`.
+- **Prices:** the weather prices are in `WeatherShopMath`. The bread price, loaves per deal and deals per day are the constants at the top of `BardEntity`.
+- **Timers:** how often he checks his phone, how long he looks at it, the stress threshold and the lightning cooldown are in `BardMath`.
+- **What a purchase does to the weather:** `WeatherShopMath.purchase`, which is unit tested. The forecast rules are in `WeatherForecast`.
+- **Stats and food:** health and speed are in `BardEntity.createAttributes()`. The bread's food values are in `BardItems`.
+- **Body and textures:** the shape and the phone pose are in `BardModel`. The skin is `textures/entity/bard/bard.png` (128×64, using the UV layout described in `BardModel`).
 
 ## Intent
 Bård is a friend of the group: a blonde guy of average height with a big butt. The joke is that he always has to check the weather report. In the game he checks his phone all the time and tells everyone what the weather will do. And he is right, because Minecraft decides the weather in advance. For diamonds he can change the weather, once per in-game day for the whole world. Hit him and lightning strikes next to you.
