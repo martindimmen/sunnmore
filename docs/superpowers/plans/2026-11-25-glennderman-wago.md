@@ -225,3 +225,7 @@
     6. Click from the offhand.
     7. `/glennvisit`, then `/time add 24000` a few times: about 1 morning in 5 he has a fifth deal, Glenndermans Wago for 2 glass and 2 iron. Buy it and hear the Wago line.
     8. As a Stamkunde of level 2 or higher, the Wago deal still costs 2 glass and 2 iron.
+    9. Durability (added after the build):
+       - The bar goes down one step per click, and the Wago breaks with the item-break sound after 250 clicks. Glenn's breaks after 500.
+       - A worn Wago is repaired with an iron ingot in an anvil.
+       - In creative the bar never moves.

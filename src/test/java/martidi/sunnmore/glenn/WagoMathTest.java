@@ -26,6 +26,12 @@ class WagoMathTest {
 	}
 
 	@Test
+	void wearsOutAndGlennsLastsTwiceAsLong() {
+		assertEquals(250, WagoMath.WAGO_CLICKS);
+		assertEquals(2 * WagoMath.WAGO_CLICKS, WagoMath.GLENNDERMAN_WAGO_CLICKS);
+	}
+
+	@Test
 	void pinchIsTwoHearts() {
 		assertEquals(4.0F, WagoMath.PINCH_DAMAGE);
 	}

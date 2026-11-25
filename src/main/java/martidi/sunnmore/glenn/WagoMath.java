@@ -9,6 +9,10 @@ public final class WagoMath {
 	public static final int PINCH_ONE_IN = 10;
 	/** Two hearts. Armor and Protection don't help (see the damage type tags). */
 	public static final float PINCH_DAMAGE = 4.0F;
+	/** A Wago wears out: each click costs one durability point, so it breaks after this many clicks. */
+	public static final int WAGO_CLICKS = 250;
+	/** Glenndermans Wago lasts twice as long (Martin's call: a reason to pay Glenn for it). */
+	public static final int GLENNDERMAN_WAGO_CLICKS = 2 * WAGO_CLICKS;
 	/** Glenn adds his own Wago as a fifth deal on 1 morning in 5. */
 	public static final int RARE_DEAL_ONE_IN = 5;
 

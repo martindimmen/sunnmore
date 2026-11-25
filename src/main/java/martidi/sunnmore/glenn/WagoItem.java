@@ -12,7 +12,8 @@ import net.minecraft.world.level.Level;
 /**
  * A Wago lever connector (both the crafted one and Glenndermans Wago). Right-click to click it; 1
  * click in 10 pinches your finger for 2 hearts. The pinch can kill you on low health, on purpose
- * (Martin's call). No cooldown: holding right-click keeps clicking.
+ * (Martin's call). No cooldown: holding right-click keeps clicking. Every click wears it by one
+ * point, so it breaks after WagoMath.WAGO_CLICKS clicks (twice that for Glenn's).
  */
 public class WagoItem extends Item {
 	public WagoItem(Item.Properties properties) {
@@ -28,6 +29,8 @@ public class WagoItem extends Item {
 			if (WagoMath.isPinch(player.getRandom().nextInt(WagoMath.PINCH_ONE_IN))) {
 				player.hurtServer(server, server.damageSources().source(WagoDamage.PINCH), WagoMath.PINCH_DAMAGE);
 			}
+			// Wears it by one click; breaks it (with the item break sound) at zero. Free in creative.
+			player.getItemInHand(hand).hurtAndBreak(1, player, hand);
 		}
 		// SUCCESS on both sides: the arm swings.
 		return InteractionResult.SUCCESS;

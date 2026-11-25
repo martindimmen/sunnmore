@@ -85,6 +85,12 @@ Glenn loves clicking around with a Wago, the clicky lever connector electricians
   - **Glenndermans Wago:** comes only from Glenn, as a rare deal. You pay with 2 glass and 2 iron ingots instead of sugar. It works like the plain one; you pay extra for his name, the same joke as Premium Jord.
 - **Using it:** right-click and it clicks. Sometimes it pinches you.
 - **The pinch can kill you** if you are low on health. This is a deliberate exception to the mod's "nothing kills you unexpectedly" rule.
+- **It wears out** (added 2026-11-25):
+  - Each click costs one durability point. The plain Wago breaks after 250 clicks, Glenndermans Wago after 500.
+  - That is the one thing Glenn's version does better, so there is a reason to pay him for it.
+  - You repair either one with an iron ingot in an anvil.
+  - Because it has durability, it doesn't stack.
+  - In creative it never wears out.
 
 **My calls (Martin approved the short design):**
 - **Pinch:** 1 click in 10 pinches you for 2 hearts (4 damage).
