@@ -25,6 +25,8 @@ import martidi.sunnmore.visits.LureBlocks;
 public class KyrkjetomtBlockEntity extends RandomizableContainerBlockEntity {
 	private static final int SIZE = 27;
 	private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+	/** Stian finished this church: he never comes back to change it. */
+	private boolean finished;
 
 	public KyrkjetomtBlockEntity(BlockPos pos, BlockState state) {
 		super(LureBlocks.KYRKJETOMT_ENTITY, pos, state);
@@ -33,6 +35,7 @@ public class KyrkjetomtBlockEntity extends RandomizableContainerBlockEntity {
 	@Override
 	protected void saveAdditional(ValueOutput output) {
 		super.saveAdditional(output);
+		output.putBoolean("ChurchFinished", this.finished);
 		if (!this.trySaveLootTable(output)) {
 			ContainerHelper.saveAllItems(output, this.items);
 		}
@@ -41,6 +44,7 @@ public class KyrkjetomtBlockEntity extends RandomizableContainerBlockEntity {
 	@Override
 	protected void loadAdditional(ValueInput input) {
 		super.loadAdditional(input);
+		this.finished = input.getBooleanOr("ChurchFinished", false);
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 		if (!this.tryLoadLootTable(input)) {
 			ContainerHelper.loadAllItems(input, this.items);
@@ -70,6 +74,15 @@ public class KyrkjetomtBlockEntity extends RandomizableContainerBlockEntity {
 	@Override
 	protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
 		return ChestMenu.threeRows(containerId, inventory, this);
+	}
+
+	public boolean isFinished() {
+		return this.finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+		this.setChanged();
 	}
 
 	/** How many of this item (id like "minecraft:birch_planks") the plot holds. */

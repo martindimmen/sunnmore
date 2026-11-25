@@ -43,6 +43,8 @@ public class BuildChurchGoal extends Goal {
 	/** He builds from outside the church, so he needs a long reach: the spire is 14 up. */
 	private static final double REACH = 16.0;
 	private static final int MAX_FAILED_PLACEMENTS = 5;
+	/** Twenty seconds without placing a block while walking to the site: he can't get there. */
+	private static final int GIVE_UP_WALKING = 400;
 	private static final String BJORNEUNGE = "sunnmore:bjorneunge";
 
 	private final StianEntity stian;
@@ -53,6 +55,7 @@ public class BuildChurchGoal extends Goal {
 	private long smokeBreakUntil;
 	private int boostedLeft;
 	private int failedPlacements;
+	private long lastProgress;
 	/** Plots with something in the way or missing material, and when to look at them again. */
 	private final Map<BlockPos, Long> retryAt = new HashMap<>();
 	/** Plots he already greeted with a start line, and missing items he already mentioned. */
@@ -95,7 +98,7 @@ public class BuildChurchGoal extends Goal {
 	private boolean ready(ServerLevel level, BlockPos pos, long now) {
 		Optional<ChurchSite> site = site(level, pos);
 		KyrkjetomtBlockEntity plot = plot(level, pos);
-		if (site.isEmpty() || plot == null) {
+		if (site.isEmpty() || plot == null || plot.isFinished()) {
 			return false;
 		}
 		Step step = site.get().next(plot);
@@ -114,7 +117,6 @@ public class BuildChurchGoal extends Goal {
 			this.retryAt.put(pos, now + RETRY_TICKS);
 			return false;
 		}
-		this.saidBlocked.remove(pos);
 		return true;
 	}
 
@@ -122,9 +124,11 @@ public class BuildChurchGoal extends Goal {
 	public void start() {
 		this.failedPlacements = 0;
 		long now = this.stian.level().getGameTime();
-		if (this.nextSmokeBreak == 0) {
+		// Not straight into a røykepause after waiting a while: a break is always a few minutes into the work.
+		if (this.nextSmokeBreak < now) {
 			this.nextSmokeBreak = now + this.stian.roll(StianMath.SMOKE_BREAK_MIN, StianMath.SMOKE_BREAK_MAX);
 		}
+		this.lastProgress = now;
 		if (this.plotPos != null && this.started.add(this.plotPos)) {
 			this.stian.sayLine(StianLines.Pool.START, null, true);
 		}
@@ -175,7 +179,9 @@ public class BuildChurchGoal extends Goal {
 		Step step = site.get().next(plot);
 		if (step instanceof ChurchProgress.Finished) {
 			this.stian.sayLine(StianLines.Pool.FINISHED, null, true);
-			this.retryAt.put(this.plotPos, Long.MAX_VALUE);
+			// Saved on the plot: he never comes back to change a finished church, even after a restart.
+			// A new plot placed in the same spot is a new church.
+			plot.setFinished(true);
 			this.plotPos = null;
 			return;
 		}
@@ -191,6 +197,11 @@ public class BuildChurchGoal extends Goal {
 		this.stian.getLookControl().setLookAt(target.getX() + 0.5, target.getY() + 0.5, target.getZ() + 0.5);
 		// Build from outside: walk out of the church, then to the side nearest the block.
 		if (site.get().inside(this.stian.blockPosition()) || !target.closerToCenterThan(this.stian.position(), REACH)) {
+			if (now - this.lastProgress > GIVE_UP_WALKING) {
+				// He can't get there (water, a fence, a cliff): say so once and look again later.
+				this.blocked(now);
+				return;
+			}
 			if (now % 20 == 0) {
 				BlockPos stand = site.get().standingSpotFor(place.placement());
 				this.stian.getNavigation().moveTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, 0.8);
@@ -208,8 +219,11 @@ public class BuildChurchGoal extends Goal {
 		boolean mistake = boosted && StianMath.isMistake(this.stian.getRandom().nextInt(StianMath.MISTAKE_ONE_IN));
 		if (site.get().place(place.placement(), plot, mistake)) {
 			this.failedPlacements = 0;
-			// Progress again: missing items may be mentioned again later.
+			this.lastProgress = now;
+			this.stian.markPlaced(now);
+			// Progress again: missing items and obstacles may be mentioned again later.
 			this.saidMissing.clear();
+			this.saidBlocked.remove(this.plotPos);
 			if (boosted) {
 				this.boostedLeft--;
 			}
@@ -218,12 +232,8 @@ public class BuildChurchGoal extends Goal {
 			level.playSound(null, target, placed.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 0.9F);
 			this.nextPlace = now + StianMath.placeTicks(this.boostedLeft > 0);
 		} else if (++this.failedPlacements >= MAX_FAILED_PLACEMENTS) {
-			// Someone put something in the way after he started: say so (once) and look again later.
-			if (this.saidBlocked.add(this.plotPos)) {
-				this.stian.sayLine(StianLines.Pool.BLOCKED, null, true);
-			}
-			this.retryAt.put(this.plotPos, now + RETRY_TICKS);
-			this.plotPos = null;
+			// Someone (or something) is in the way after he started: say so once and look again later.
+			this.blocked(now);
 		} else {
 			this.nextPlace = now + 20;
 		}
@@ -235,6 +245,18 @@ public class BuildChurchGoal extends Goal {
 		this.stian.setSmoking(false);
 		this.smokeBreakUntil = 0;
 		this.stian.getNavigation().stop();
+	}
+
+	/** Something stops him at this plot: the blocked line once per plot, then a retry later. */
+	private void blocked(long now) {
+		if (this.plotPos == null) {
+			return;
+		}
+		if (this.saidBlocked.add(this.plotPos)) {
+			this.stian.sayLine(StianLines.Pool.BLOCKED, null, true);
+		}
+		this.retryAt.put(this.plotPos, now + RETRY_TICKS);
+		this.plotPos = null;
 	}
 
 	private void sayMissing(Missing missing) {

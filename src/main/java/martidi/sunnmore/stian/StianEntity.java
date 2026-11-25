@@ -56,6 +56,9 @@ public class StianEntity extends PathfinderMob implements VisitingFriend {
 	private static final double ARRIVAL_RANGE = 64.0;
 	/** How hard the crooked walk pushes sideways. */
 	private static final double DRIFT = 0.04;
+	/** A visit doesn't end within 30 seconds of his last block: short pauses (a trip, a smoke) don't count as done. */
+	private static final int LEAVE_GRACE_TICKS = 600;
+	private static final int LINE_MEMORY = 64;
 
 	private final Map<String, Long> lastLineBy = new HashMap<>();
 	private long lastLineTick = -LINE_COOLDOWN_TICKS;
@@ -67,6 +70,7 @@ public class StianEntity extends PathfinderMob implements VisitingFriend {
 	private int despawnDelay;
 	/** Set by the building goal: true while the plot holds what the next block needs. */
 	private boolean building;
+	private long lastPlaced = -LEAVE_GRACE_TICKS;
 
 	public StianEntity(EntityType<? extends PathfinderMob> type, Level level) {
 		super(type, level);
@@ -121,6 +125,10 @@ public class StianEntity extends PathfinderMob implements VisitingFriend {
 
 	public void setBuilding(boolean building) {
 		this.building = building;
+	}
+
+	public void markPlaced(long now) {
+		this.lastPlaced = now;
 	}
 
 	@Override
@@ -256,7 +264,7 @@ public class StianEntity extends PathfinderMob implements VisitingFriend {
 
 	/** A visit ends when his time is up, but never in the middle of building with materials at hand. */
 	private void maybeLeave(ServerLevel level) {
-		if (this.despawnDelay <= 0 || this.building) {
+		if (this.despawnDelay <= 0 || this.building || level.getGameTime() - this.lastPlaced < LEAVE_GRACE_TICKS) {
 			return;
 		}
 		if (this.hasCustomName()) {
@@ -306,6 +314,10 @@ public class StianEntity extends PathfinderMob implements VisitingFriend {
 			return false;
 		}
 		this.lastLineTick = now;
+		if (this.lastLineBy.size() > LINE_MEMORY) {
+			// Forget lines old enough to be said again, so a resident Stian's memory stays small.
+			this.lastLineBy.values().removeIf(time -> now - time >= LINE_REPEAT_TICKS);
+		}
 		this.lastLineBy.put(key, now);
 		StianLines.sayNearby(this, StianLines.line(pool, this.getRandom(), about, arg), about, StianLines.HEARING_RANGE);
 		return true;

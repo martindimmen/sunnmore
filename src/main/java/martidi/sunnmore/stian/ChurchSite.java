@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
@@ -140,15 +141,24 @@ public final class ChurchSite {
 			&& (here.isAir() || here.canBeReplaced() || here.getBlock() instanceof FlowerBlock);
 	}
 
-	/** Everything inside the church's box that he would have to break. He never does: these stop him. */
+	/**
+	 * What he would have to break. He never does: these stop him. Before the first block the whole
+	 * box must be clear; once building, only the spots still to be built count, so a torch or a chest
+	 * a player puts inside the half-built church doesn't stop him.
+	 */
 	public List<BlockPos> obstacles() {
 		List<BlockPos> blocked = new ArrayList<>();
 		ChurchBlueprint blueprint = this.church.blueprint();
+		boolean started = blueprint.buildOrder().stream().anyMatch(this::done);
 		for (int x = 0; x < blueprint.width(); x++) {
 			for (int y = 0; y < blueprint.height(); y++) {
 				for (int z = 0; z < blueprint.depth(); z++) {
+					Placement p = this.church.at(x, y, z);
+					if (started && (p == null || this.done(p))) {
+						continue;
+					}
 					BlockPos pos = this.worldPos(x, y, z);
-					if (!this.isFree(pos, this.church.at(x, y, z))) {
+					if (!this.isFree(pos, p)) {
 						blocked.add(pos);
 					}
 				}
@@ -181,10 +191,19 @@ public final class ChurchSite {
 		if (!finalState.is(state.getBlock()) || !plotInventory.take(p.item())) {
 			return false;
 		}
+		// Grass and flowers in the way are broken with their drops, not deleted.
+		this.clearSoft(pos);
+		if (door) {
+			this.clearSoft(pos.above());
+		}
 		boolean placed;
 		if (door) {
-			placed = this.level.setBlock(pos, finalState, Block.UPDATE_ALL)
-				&& this.level.setBlock(pos.above(), finalState.setValue(DoorBlock.HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
+			placed = this.level.setBlock(pos, finalState, Block.UPDATE_ALL);
+			if (placed && !this.level.setBlock(pos.above(), finalState.setValue(DoorBlock.HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL)) {
+				// Never leave half a door while handing the door back.
+				this.level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+				placed = false;
+			}
 		} else {
 			placed = this.level.setBlock(pos, finalState, Block.UPDATE_ALL);
 		}
@@ -192,6 +211,12 @@ public final class ChurchSite {
 			plotInventory.giveBack(p.item());
 		}
 		return placed;
+	}
+
+	private void clearSoft(BlockPos pos) {
+		if (!this.level.getBlockState(pos).isAir()) {
+			this.level.destroyBlock(pos, true);
+		}
 	}
 
 	public boolean occupied(BlockPos pos) {
@@ -229,16 +254,17 @@ public final class ChurchSite {
 	/** The plot's own message to a player: what is in the way, what is missing, or that all is ready. */
 	public void reportTo(ServerPlayer player, KyrkjetomtBlockEntity plotInventory) {
 		this.showOutline();
+		Map<String, Integer> needed = ChurchProgress.stillNeeded(this.church.blueprint().buildOrder(), this::done);
+		// A finished church may have furniture inside: that is not "in the way".
+		if (plotInventory.isFinished() || needed.isEmpty()) {
+			player.sendSystemMessage(prefix().append(Component.translatable("chat.sunnmore.kyrkjetomt.finished")));
+			return;
+		}
 		List<BlockPos> blocked = this.obstacles();
 		if (!blocked.isEmpty()) {
 			BlockPos first = blocked.get(0);
 			player.sendSystemMessage(prefix().append(Component.translatable("chat.sunnmore.kyrkjetomt.blocked",
 				blocked.size(), first.getX() + " " + first.getY() + " " + first.getZ())));
-			return;
-		}
-		Map<String, Integer> needed = ChurchProgress.stillNeeded(this.church.blueprint().buildOrder(), this::done);
-		if (needed.isEmpty()) {
-			player.sendSystemMessage(prefix().append(Component.translatable("chat.sunnmore.kyrkjetomt.finished")));
 			return;
 		}
 		MutableComponent list = Component.empty();
