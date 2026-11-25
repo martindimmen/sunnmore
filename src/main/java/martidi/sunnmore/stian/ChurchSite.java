@@ -15,11 +15,11 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -127,8 +127,17 @@ public final class ChurchSite {
 	/** Air, plants that get replaced anyway (grass, flowers, snow layers), or the church's own block. */
 	private boolean isFree(BlockPos pos, Placement p) {
 		BlockState here = this.level.getBlockState(pos);
-		return here.isAir() || here.is(BlockTags.REPLACEABLE) || here.is(BlockTags.FLOWERS)
-			|| (p != null && here.is(this.state(p).getBlock()));
+		return isSoftOrEmpty(here) || (p != null && here.is(this.state(p).getBlock()));
+	}
+
+	/**
+	 * Air, grass, small flowers and snow layers: things he may build over. Never fluids (a pond, lava),
+	 * never leaves, never anything a player built. Uses the blocks' own "replaceable" flag rather than
+	 * tags: the FLOWERS tag includes cherry and azalea leaves, and REPLACEABLE includes water and lava.
+	 */
+	static boolean isSoftOrEmpty(BlockState here) {
+		return here.getFluidState().isEmpty()
+			&& (here.isAir() || here.canBeReplaced() || here.getBlock() instanceof FlowerBlock);
 	}
 
 	/** Everything inside the church's box that he would have to break. He never does: these stop him. */
@@ -190,13 +199,15 @@ public final class ChurchSite {
 	}
 
 	/** A tipsy mistake: the same block, turned wrong. */
-	private static BlockState wrongly(BlockState state, RandomSource random) {
-		if (state.hasProperty(StairBlock.FACING)) {
+	static BlockState wrongly(BlockState state, RandomSource random) {
+		// Check the block, not the property: wall torches and doors share stairs' FACING property,
+		// and asking them for a stair's HALF crashes.
+		if (state.getBlock() instanceof StairBlock) {
 			return random.nextBoolean()
 				? state.setValue(StairBlock.FACING, state.getValue(StairBlock.FACING).getOpposite())
 				: state.setValue(StairBlock.HALF, state.getValue(StairBlock.HALF) == Half.TOP ? Half.BOTTOM : Half.TOP);
 		}
-		if (state.hasProperty(DoorBlock.HINGE)) {
+		if (state.getBlock() instanceof DoorBlock) {
 			return state.setValue(DoorBlock.HINGE, state.getValue(DoorBlock.HINGE) == DoorHingeSide.LEFT ? DoorHingeSide.RIGHT : DoorHingeSide.LEFT);
 		}
 		return state;

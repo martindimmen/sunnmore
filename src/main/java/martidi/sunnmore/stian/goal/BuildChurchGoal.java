@@ -58,6 +58,8 @@ public class BuildChurchGoal extends Goal {
 	/** Plots he already greeted with a start line, and missing items he already mentioned. */
 	private final Set<BlockPos> started = new HashSet<>();
 	private final Set<String> saidMissing = new HashSet<>();
+	/** Plots he already said are blocked: once per plot until it is clear again. */
+	private final Set<BlockPos> saidBlocked = new HashSet<>();
 
 	public BuildChurchGoal(StianEntity stian) {
 		this.stian = stian;
@@ -106,10 +108,13 @@ public class BuildChurchGoal extends Goal {
 			return false;
 		}
 		if (!site.get().obstacles().isEmpty()) {
-			this.stian.sayLine(StianLines.Pool.BLOCKED, null, false);
+			if (this.saidBlocked.add(pos)) {
+				this.stian.sayLine(StianLines.Pool.BLOCKED, null, true);
+			}
 			this.retryAt.put(pos, now + RETRY_TICKS);
 			return false;
 		}
+		this.saidBlocked.remove(pos);
 		return true;
 	}
 
@@ -213,8 +218,10 @@ public class BuildChurchGoal extends Goal {
 			level.playSound(null, target, placed.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0F, 0.9F);
 			this.nextPlace = now + StianMath.placeTicks(this.boostedLeft > 0);
 		} else if (++this.failedPlacements >= MAX_FAILED_PLACEMENTS) {
-			// Someone put something in the way after he started: say so and look again later.
-			this.stian.sayLine(StianLines.Pool.BLOCKED, null, false);
+			// Someone put something in the way after he started: say so (once) and look again later.
+			if (this.saidBlocked.add(this.plotPos)) {
+				this.stian.sayLine(StianLines.Pool.BLOCKED, null, true);
+			}
 			this.retryAt.put(this.plotPos, now + RETRY_TICKS);
 			this.plotPos = null;
 		} else {
