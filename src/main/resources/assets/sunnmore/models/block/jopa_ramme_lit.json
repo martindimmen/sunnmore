@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "sunnmore:block/jopa_ramme_lit"
+  }
+}

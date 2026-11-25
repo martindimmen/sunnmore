@@ -76,8 +76,45 @@ Glenn is a tall, ginger, social guy whose friends joke that he sells drugs. In t
 - **Killer debuff:** Slowness I and Weakness I.
 - **Visit timing:** the game checks once per in-game day. The chance starts at 25%, rises by 25% after each day without a visit (up to 75%), and then has an extra 1-in-3 roll. That comes to about one visit a week. The wandering trader's extra roll is 1-in-10. Change `EXTRA_ROLL` in `visits/VisitMath` to tune it. Visits now run in the shared `visits/FriendVisits`, and **Glenns Plante** near a player gives a 50% chance each morning that he comes to it (see `lures-design.md`).
 
+## Wago (added 2026-11-25)
+Glenn loves clicking around with a Wago, the clicky lever connector electricians use. Get it wrong and it pinches you, and that hurts a lot.
+
+**Martin's decisions:**
+- **Two items that work the same way:**
+  - **Wago:** anyone can craft it from 1 iron ingot and 1 glass.
+  - **Glenndermans Wago:** comes only from Glenn, as a rare deal. You pay with 2 glass and 2 iron ingots instead of sugar. It works like the plain one; you pay extra for his name, the same joke as Premium Jord.
+- **Using it:** right-click and it clicks. Sometimes it pinches you.
+- **The pinch can kill you** if you are low on health. This is a deliberate exception to the mod's "nothing kills you unexpectedly" rule.
+- **It wears out** (added 2026-11-25):
+  - Each click costs one durability point. The plain Wago breaks after 250 clicks, Glenndermans Wago after 500.
+  - That is the one thing Glenn's version does better, so there is a reason to pay him for it.
+  - You repair either one with an iron ingot in an anvil.
+  - Because it has durability, it doesn't stack.
+  - In creative it never wears out.
+
+**My calls (Martin approved the short design):**
+- **Pinch:** 1 click in 10 pinches you for 2 hearts (4 damage).
+  - Armor and Protection don't help, because it's your finger. The damage type is in the `bypasses_armor` and `bypasses_enchantments` tags.
+  - It doesn't knock you back (tag `no_knockback`). Vanilla would push you in a random direction, off a cliff or into lava, and that would be an unexpected death.
+  - It has its own death message.
+- **Clicking:** the vanilla lever click sound and an arm swing.
+  - There is no cooldown, so holding right-click clicks about 5 times a second.
+- **Rare deal:**
+  - Each morning there is a 1 in 5 chance that Glenn adds Glenndermans Wago as a fifth deal. He sells it once a day, on top of his normal four.
+  - Stamkunde discounts only apply to sugar prices, so the Wago deal always costs 2 glass and 2 iron.
+- **Glenn's reaction:** when you buy his Wago he says one of two Wago lines instead of his normal trade line.
+- **Looks:**
+  - Both are a small clear connector with orange levers. Glenn's has hoodie-green levers.
+  - Glenndermans Wago has a yellow name (uncommon rarity) and its own lore line.
+- **Left out for now:** Glenn reacting when someone near him gets pinched.
+
+**Built** on 2026-11-25:
+- **Code:** `WagoItem`, `WagoMath`, `WagoDamage` and the rare deal in `GlennTrades.rollLineup`.
+- **Discount:** the Stamkunde discount checks the item you pay with (`GlennTrades.discountApplies`).
+
 ## Where to change things
 - **Chat lines, item names and advancement texts:** `src/main/resources/assets/sunnmore/lang/en_us.json`. If you add a line to a pool, also raise that pool's count in `GlennLines.Pool`.
 - **Deals and prices:** `GlennTrades`.
+- **Wago pinch chance, damage and how rare Glenn's Wago deal is:** `WagoMath`. The recipe is `data/sunnmore/recipe/wago.json`.
 - **Stamkunde numbers:** `StamkundeMath`.
 - **Textures:** under `assets/sunnmore/textures`.

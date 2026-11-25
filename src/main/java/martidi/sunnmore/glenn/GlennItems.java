@@ -17,6 +17,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.ItemLore;
@@ -28,8 +29,8 @@ import net.minecraft.world.item.equipment.Equippable;
 import martidi.sunnmore.Sunnmore;
 
 /**
- * Glenn's made-up goods. There are no recipes: in survival they only come from trading with Glenn.
- * They are listed in the Sunnmøre creative tab.
+ * Glenn's made-up goods. In survival they only come from trading with Glenn, except the plain Wago,
+ * which anyone can craft from iron and glass. They are listed in the Sunnmøre creative tab.
  */
 public final class GlennItems {
 	public static final ResourceKey<EquipmentAsset> GINGER_WIG_ASSET =
@@ -61,6 +62,20 @@ public final class GlennItems {
 	public static final Item PREMIUM_JORD = register("premium_jord", Item::new, withLore("premium_jord")
 		.rarity(Rarity.EPIC));
 
+	/**
+	 * A lever connector that clicks, and sometimes pinches (see WagoItem). Crafted from iron and glass.
+	 * It wears out like a tool (durability means it doesn't stack) and is repaired with an iron ingot.
+	 */
+	public static final Item WAGO = register("wago", WagoItem::new, withLore("wago")
+		.durability(WagoMath.WAGO_CLICKS)
+		.repairable(Items.IRON_INGOT));
+
+	/** Glenn's Wago: a rare deal, paid in glass and iron (see GlennTrades). Lasts twice as long. */
+	public static final Item GLENNDERMAN_WAGO = register("glennderman_wago", WagoItem::new, withLore("glennderman_wago")
+		.rarity(Rarity.UNCOMMON)
+		.durability(WagoMath.GLENNDERMAN_WAGO_CLICKS)
+		.repairable(Items.IRON_INGOT));
+
 	public static final ResourceKey<CreativeModeTab> SUNNMORE_TAB_KEY =
 		ResourceKey.create(Registries.CREATIVE_MODE_TAB, Sunnmore.id("sunnmore"));
 
@@ -76,6 +91,8 @@ public final class GlennItems {
 				output.accept(MYSTERY_BRUS);
 				output.accept(GINGER_WIG);
 				output.accept(PREMIUM_JORD);
+				output.accept(WAGO);
+				output.accept(GLENNDERMAN_WAGO);
 			})
 			.build()
 	);
