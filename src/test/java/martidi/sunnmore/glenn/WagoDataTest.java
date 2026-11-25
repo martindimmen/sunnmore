@@ -45,7 +45,9 @@ class WagoDataTest {
 
 	@Test
 	void pinchIgnoresArmor() throws IOException {
-		for (String tag : new String[] {"bypasses_armor", "bypasses_enchantments"}) {
+		// no_knockback: the pinch has no position, so vanilla would push the player in a random
+		// direction, off a cliff or into lava. The pinch may kill on low health, the push may not.
+		for (String tag : new String[] {"bypasses_armor", "bypasses_enchantments", "no_knockback"}) {
 			JsonObject json = read("data/minecraft/tags/damage_type/" + tag + ".json");
 			assertTrue(strings(json.get("values")).contains("sunnmore:wago_pinch"), tag);
 		}

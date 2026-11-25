@@ -89,6 +89,7 @@ Glenn loves clicking around with a Wago, the clicky lever connector electricians
 **My calls (Martin approved the short design):**
 - **Pinch:** 1 click in 10 pinches you for 2 hearts (4 damage).
   - Armor and Protection don't help, because it's your finger. The damage type is in the `bypasses_armor` and `bypasses_enchantments` tags.
+  - It doesn't knock you back (tag `no_knockback`). Vanilla would push you in a random direction, off a cliff or into lava, and that would be an unexpected death.
   - It has its own death message.
 - **Clicking:** the vanilla lever click sound and an arm swing.
   - There is no cooldown, so holding right-click clicks about 5 times a second.
