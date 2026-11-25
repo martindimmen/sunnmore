@@ -72,6 +72,12 @@ JOPA is the friend group's fictional company ("JOPA – alt innen alt", the best
 - **Light:** the lit frame and the portal give off light level 11.
 - **Portal particles:** gold dust.
 
+## Built (2026-11-25)
+- **Code:** `JopaFrame` (frame check) and `JopaLobby` (layout) are pure and unit tested. `JopaPortals` lights a frame, `JopaPortalBlock` uses vanilla's `Portal` hook, `JopaTravel` decides where you go, and `JopaLobbyBuilder` builds the lobby. `mixin/ServerLevelMixin` protects the lobby.
+- **Lobby on arrival:** missing parts are put back; air is left alone, so things built inside in creative stay.
+- **Falling into the void:** anyone in JOPA who falls 24 blocks below the lobby floor is put back in the lobby. This also catches players who get out over the roof, for example with a Teleport-tyggis.
+- **`/jopalobby` (op):** builds the lobby, and takes the player there with the way back set to where they stood. It is meant for testing, and works the same way as the friends' `/<friend>visit`.
+
 ## Left to the builder
 - The exact lobby layout and materials (white office: smooth stone floor, white concrete, glass, sea lanterns).
 - The texture details.

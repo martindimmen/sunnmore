@@ -3,6 +3,8 @@
 Check with Martin before building any of these.
 
 ## JOPA items, sold by Peter and Jakob
+The way into the JOPA dimension is built: see `docs/jopa-design.md`. It is a portal opened with the JOPA-kort, leading to an empty lobby. The content of the dimension is still open.
+
 JOPA is the friend group's fictional company. Its slogan is "JOPA – alt innen alt", and the running joke is that it is the best company in the world. Martin wants a JOPA line of items that are actually useful, not joke items.
 
 Decided so far (Martin, 2026-11-24):
