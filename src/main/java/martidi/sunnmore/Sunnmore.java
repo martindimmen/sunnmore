@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
 
+import martidi.sunnmore.bard.BardEntities;
 import martidi.sunnmore.glenn.GlennEntities;
 import martidi.sunnmore.glenn.GlennItems;
 import martidi.sunnmore.glenn.GlennLoyalty;
@@ -32,6 +33,7 @@ public class Sunnmore implements ModInitializer {
 		GlennItems.register();
 		GlennLoyalty.register();
 		JinithEntities.register();
+		BardEntities.register();
 		LureBlocks.register();
 		FriendVisits.register();
 		LOGGER.info("Sunnmore loaded");

@@ -41,7 +41,7 @@ Glenn is a tall, ginger, social guy whose friends joke that he sells drugs. In t
 - **Killing him:**
   - He drops nothing and gives no XP.
   - The killer gets Slowness and Weakness for 5 minutes.
-  - Everyone sees "<killer> drepte Glennderman! Skam deg." in red.
+  - Everyone sees "<killer> drepte Glennderman! Skam dej." in red.
 - **Visits:**
   - Like the wandering trader, he sometimes shows up near a random player, in daytime only.
   - He leaves after 2 in-game days unless he gets a name tag.

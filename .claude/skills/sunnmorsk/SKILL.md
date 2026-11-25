@@ -22,6 +22,7 @@ The mod is for Martin's friend group from Sunnmøre, so every player-facing line
 | morgon | **morga** | "i morga" |
 | altså | **altso** | "Rike kar altso." |
 | stirte | **stirra** | "Faen du stirra på?" |
+| deg | **dej** | "Skam dej.", "Kul dej ned, kompis!" |
 | Ka glo du på? | **Faen du stirra på?** | |
 | Ha det / Ses på fest (after a purchase) | **Rike kar altso.** | |
 | Ha det (when closing a shop without buying) | **Hekje du penga daaa?** | |

@@ -45,7 +45,7 @@ Bård is a friend of the group: a blonde guy of average height with a big butt. 
 - **Killing him:** same as Glenn (my call).
   - He drops nothing and gives no XP.
   - The killer gets Slowness I and Weakness I for 5 minutes.
-  - Everyone sees "<killer> drepte Bård! Skam deg." in red.
+  - Everyone sees "<killer> drepte Bård! Skam dej." in red.
   - Health: 40 (20 hearts), like Glenn, so a few hits don't kill him by accident.
 - **Visits:** the shared visit system, same rules as Glenn and Jinith.
   - He shows up on his own in daytime and stays 2 in-game days.
