@@ -41,3 +41,6 @@ What is built but waiting on Martin, as of 2026-11-25. Remove a line once it is 
   - Looking for plots can load chunks.
   - The "blocked" line doesn't say where.
   - Blocks he gives back lose any custom name.
+- **Wago:**
+  - Glenn's Wago line can be skipped if he said something in the last 3 seconds, for example when you buy cookies and then the Wago.
+  - The test only checks that the death messages exist, not that they have the right placeholders.
