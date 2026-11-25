@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.Rotation;
@@ -25,6 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Half;
+
+import net.minecraft.world.phys.AABB;
 
 import martidi.sunnmore.stian.ChurchBlueprint.Placement;
 import martidi.sunnmore.stian.ChurchProgress.Step;
@@ -73,6 +76,39 @@ public final class ChurchSite {
 
 	public BlockPos worldPos(Placement p) {
 		return this.worldPos(p.x(), p.y(), p.z());
+	}
+
+	/** Whether a world position is inside the church's box (where he must not stand while building). */
+	public boolean inside(BlockPos pos) {
+		ChurchBlueprint blueprint = this.church.blueprint();
+		Direction back = this.rotation.rotate(Direction.SOUTH);
+		Direction east = this.rotation.rotate(Direction.EAST);
+		BlockPos d = pos.subtract(this.plot);
+		int z = d.getX() * back.getStepX() + d.getZ() * back.getStepZ() - 1;
+		int x = d.getX() * east.getStepX() + d.getZ() * east.getStepZ() + blueprint.width() / 2;
+		int y = d.getY();
+		return x >= 0 && x < blueprint.width() && z >= 0 && z < blueprint.depth() && y >= 0 && y < blueprint.height();
+	}
+
+	/**
+	 * Where he stands to place a block: two steps outside the church, on the side nearest the block,
+	 * at ground level. He builds from the outside, so he never walls himself in.
+	 */
+	public BlockPos standingSpotFor(Placement p) {
+		ChurchBlueprint blueprint = this.church.blueprint();
+		int[][] spots = {
+			{p.x(), -2}, {p.x(), blueprint.depth() + 1}, {-2, p.z()}, {blueprint.width() + 1, p.z()}
+		};
+		int[] best = spots[0];
+		int bestDistance = Integer.MAX_VALUE;
+		for (int[] spot : spots) {
+			int distance = Math.abs(spot[0] - p.x()) + Math.abs(spot[1] - p.z());
+			if (distance < bestDistance) {
+				bestDistance = distance;
+				best = spot;
+			}
+		}
+		return this.worldPos(best[0], 0, best[1]);
 	}
 
 	public BlockState state(Placement p) {
@@ -124,6 +160,10 @@ public final class ChurchSite {
 		if (p.item() == null || !this.isFree(pos, null) || (door && !this.isFree(pos.above(), null))) {
 			return false;
 		}
+		// Never build a block into a player or a mob: nobody gets stuck in a wall.
+		if (this.occupied(pos) || (door && this.occupied(pos.above()))) {
+			return false;
+		}
 		if (mistake) {
 			state = wrongly(state, this.level.getRandom());
 		}
@@ -143,6 +183,10 @@ public final class ChurchSite {
 			plotInventory.giveBack(p.item());
 		}
 		return placed;
+	}
+
+	public boolean occupied(BlockPos pos) {
+		return !this.level.getEntitiesOfClass(LivingEntity.class, new AABB(pos)).isEmpty();
 	}
 
 	/** A tipsy mistake: the same block, turned wrong. */

@@ -88,6 +88,8 @@ def main(commands):
             "online-mode=false\n"
             f"server-port={free_port()}\n"
             "spawn-protection=0\n"
+            # Without players a 26.x server pauses after 60 s; a smoke test has no players.
+            "pause-when-empty-seconds=0\n"
         )
     with open(os.path.join(RUN, "eula.txt"), "w") as f:
         f.write("eula=true\n")
