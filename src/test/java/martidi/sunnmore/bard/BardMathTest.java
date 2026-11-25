@@ -31,4 +31,15 @@ class BardMathTest {
 		assertFalse(BardMath.shouldStress(new Forecast(Weather.RAIN, Weather.CLEAR, 100), false));
 		assertFalse(BardMath.shouldStress(new Forecast(Weather.CLEAR, null, 0), false));
 	}
+
+	@Test
+	void shopRefreshesWhenWeatherDealsChange() {
+		// A new day or a frozen weather while the screen is open: re-send so the screen matches the server.
+		assertTrue(BardMath.shopNeedsRefresh(true, false));
+		assertTrue(BardMath.shopNeedsRefresh(false, true));
+		assertFalse(BardMath.shopNeedsRefresh(true, true));
+		assertFalse(BardMath.shopNeedsRefresh(false, false));
+		// Nothing shown yet (no screen open): nothing to refresh.
+		assertFalse(BardMath.shopNeedsRefresh(null, true));
+	}
 }

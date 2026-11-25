@@ -94,6 +94,8 @@ public class BardEntity extends PathfinderMob implements Merchant, VisitingFrien
 	private @Nullable Player tradingPlayer;
 	private @Nullable MerchantOffers offers;
 	private long offersDay = NO_DAY;
+	/** Whether the open screen shows the weather deals as open. Null while nobody trades. */
+	private @Nullable Boolean shownWeatherOpen;
 
 	public BardEntity(EntityType<? extends PathfinderMob> type, Level level) {
 		super(type, level);
@@ -223,6 +225,10 @@ public class BardEntity extends PathfinderMob implements Merchant, VisitingFrien
 	protected void customServerAiStep(ServerLevel level) {
 		super.customServerAiStep(level);
 		this.maybeLeave(level);
+		// A new day or frozen weather while the screen is open: make the screen match what the server sells.
+		if (this.isTrading() && BardMath.shopNeedsRefresh(this.shownWeatherOpen, BardWeather.dealsOpen(level))) {
+			this.refreshTradingScreen();
+		}
 		if (this.tickCount % WEATHER_WATCH_INTERVAL == 0) {
 			this.watchWeather(level);
 		}
@@ -282,6 +288,7 @@ public class BardEntity extends PathfinderMob implements Merchant, VisitingFrien
 			}
 			this.setTradingPlayer(serverPlayer);
 			this.openTradingScreen(serverPlayer, this.getDisplayName(), 0);
+			this.shownWeatherOpen = weatherOpen;
 		}
 		return InteractionResult.SUCCESS_SERVER;
 	}
@@ -307,6 +314,9 @@ public class BardEntity extends PathfinderMob implements Merchant, VisitingFrien
 	@Override
 	public void setTradingPlayer(@Nullable Player player) {
 		this.tradingPlayer = player;
+		if (player == null) {
+			this.shownWeatherOpen = null;
+		}
 	}
 
 	@Override
@@ -395,8 +405,10 @@ public class BardEntity extends PathfinderMob implements Merchant, VisitingFrien
 
 	/** Re-sends the deals to whoever has his screen open, and clears a result that is now sold out. */
 	public void refreshTradingScreen() {
-		if (this.tradingPlayer instanceof ServerPlayer player && player.containerMenu instanceof MerchantMenu menu) {
+		if (this.tradingPlayer instanceof ServerPlayer player && player.containerMenu instanceof MerchantMenu menu
+			&& this.level() instanceof ServerLevel level) {
 			MerchantOffers current = this.getOffers();
+			this.shownWeatherOpen = BardWeather.dealsOpen(level);
 			menu.updateSellItem();
 			player.sendMerchantOffers(menu.containerId, current, 0, 0, this.showProgressBar(), this.canRestock());
 		}
