@@ -25,6 +25,7 @@ public final class GlennLines {
 		GREET_REGULAR(2),
 		TRADE(3),
 		SCAM(2),
+		WAGO(2),
 		HURT(3),
 		DODGE(3),
 		FAREWELL(1),

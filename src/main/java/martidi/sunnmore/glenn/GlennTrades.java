@@ -1,6 +1,7 @@
 package martidi.sunnmore.glenn;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -9,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.FireworkExplosion;
@@ -21,7 +23,8 @@ import net.minecraft.world.timeline.Timelines;
 /**
  * Glenn's deals. Each in-game morning a Glenn picks 2 deals from his own goods and 2 silly vanilla
  * ones. Each deal can be bought a few times, then it is sold out until the next morning. Price is
- * always sugar.
+ * sugar, except the rare fifth deal: on 1 morning in 5 he also sells one Glenndermans Wago for
+ * 2 glass and 2 iron ingots.
  */
 public final class GlennTrades {
 	public static final int GLENN_DEALS_PER_DAY = 2;
@@ -61,7 +64,19 @@ public final class GlennTrades {
 		for (int index : LineupPicker.pick(VANILLA_POOL.size(), VANILLA_DEALS_PER_DAY, random::nextInt)) {
 			offers.add(VANILLA_POOL.get(index).toOffer());
 		}
+		if (WagoMath.rareDealToday(random.nextInt(WagoMath.RARE_DEAL_ONE_IN))) {
+			offers.add(new MerchantOffer(new ItemCost(Items.GLASS, 2), Optional.of(new ItemCost(Items.IRON_INGOT, 2)),
+				new ItemStack(GlennItems.GLENNDERMAN_WAGO), 1, XP_PER_TRADE, 0.0F));
+		}
 		return offers;
+	}
+
+	/**
+	 * Stamkunde discounts are in sugar, so they only apply to deals paid in sugar, never to the Wago
+	 * deal. Call with the item of the offer's first cost: {@code offer.getItemCostA().item().value()}.
+	 */
+	public static boolean discountApplies(Item paidWith) {
+		return paidWith == Items.SUGAR;
 	}
 
 	/** The in-game day number, counted the same way villagers count it for restocking. */

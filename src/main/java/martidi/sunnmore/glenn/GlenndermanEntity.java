@@ -299,11 +299,13 @@ public class GlenndermanEntity extends Enderman implements Merchant, VisitingFri
 		this.openTradingScreen(player, this.getDisplayName(), GlennLoyalty.level(player));
 	}
 
-	/** Stamkunde discount: (level - 1) sugar off every deal, for whoever is trading right now. */
+	/** Stamkunde discount: (level - 1) sugar off every sugar deal, for whoever is trading right now. */
 	private void applyStamkundePrices(Player player) {
 		int discount = StamkundeMath.discount(GlennLoyalty.level(player));
 		for (MerchantOffer offer : this.getOffers()) {
-			offer.setSpecialPriceDiff(-discount);
+			if (GlennTrades.discountApplies(offer.getItemCostA().item().value())) {
+				offer.setSpecialPriceDiff(-discount);
+			}
 		}
 	}
 
@@ -391,6 +393,8 @@ public class GlenndermanEntity extends Enderman implements Merchant, VisitingFri
 			this.applyStamkundePrices(player);
 		} else if (offer.getResult().is(GlennItems.PREMIUM_JORD)) {
 			this.sayLine(GlennLines.Pool.SCAM, player, false);
+		} else if (offer.getResult().is(GlennItems.GLENNDERMAN_WAGO)) {
+			this.sayLine(GlennLines.Pool.WAGO, player, false);
 		} else {
 			this.sayLine(GlennLines.Pool.TRADE, player, false);
 		}
