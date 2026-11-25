@@ -104,5 +104,15 @@
   "chat.sunnmore.bard.arrive.1": "Ej e her! Fint vær, men det varer ikkje.",
   "chat.sunnmore.bard.leave.0": "Ej må heim før det regne. Sjåast!",
   "chat.sunnmore.bard.leave.1": "Yr sei ej må gå. Sjåast!",
-  "chat.sunnmore.bard.death.0": "Dette sto ikkje på Yr ..."
+  "chat.sunnmore.bard.death.0": "Dette sto ikkje på Yr ...",
+  "item.sunnmore.vaermelding": "Værmelding",
+  "item.sunnmore.vaermelding.sol": "Værmelding: Sol",
+  "item.sunnmore.vaermelding.regn": "Værmelding: Regn",
+  "item.sunnmore.vaermelding.torden": "Værmelding: Torden",
+  "item.sunnmore.vaermelding.lore": "Bård he sjekka Yr for dej.",
+  "item.sunnmore.heimebakt_brod": "Bårds heimebakte brød",
+  "item.sunnmore.heimebakt_brod.lore": "Heimebakt. Berre det beste.",
+  "chat.sunnmore.bard.vaermelding": "Værmelding",
+  "chat.sunnmore.bard.bought_brod.0": "Heimebakt i dag tidleg. Kos dej!",
+  "chat.sunnmore.bard.bought_brod.1": "Beste brødet på Sunnmøre, altso."
 }

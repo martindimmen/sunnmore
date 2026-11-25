@@ -45,7 +45,10 @@ public final class BardEntities {
 	/** Called from Sunnmore.onInitialize, after GlennItems (which owns the Sunnmøre tab). */
 	public static void register() {
 		FabricDefaultAttributeRegistry.register(BARD, BardEntity.createAttributes());
+		BardWeather.register();
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(output -> output.accept(BARD_SPAWN_EGG));
 		CreativeModeTabEvents.modifyOutputEvent(GlennItems.SUNNMORE_TAB_KEY).register(output -> output.accept(BARD_SPAWN_EGG));
+		// After the egg, so the tab lists Bård first and then his goods.
+		BardItems.register();
 	}
 }

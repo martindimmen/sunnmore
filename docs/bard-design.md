@@ -36,6 +36,14 @@ Bård is a friend of the group: a blonde guy of average height with a big butt. 
   - Right-click it anywhere in the Overworld and it shows the current forecast in your own chat, only to you, in Bård's words.
   - Outside the Overworld it says there is no signal ("Ingen dekning her").
   - In survival it comes only from Bård. It is also in the Sunnmøre creative tab.
+- **Homemade bread** (Martin, added during the build: "he likes baking bread, so its his homemade bread"):
+  - A fourth deal in his shop: **Bårds heimebakte brød**, his own item. It has no crafting recipe; in survival it comes only from Bård. It is also in the Sunnmøre creative tab.
+  - My calls:
+    - 16 loaves for 1 diamond.
+    - 4 trades per Bård per in-game day, restocked each morning.
+    - Better food than vanilla bread: 8 hunger points and high saturation, like steak.
+    - A lore line on the item.
+  - The bread has nothing to do with the weather limit. Buying it doesn't use up the day's weather change, and the bread deal stays open when the weather deals are sold out, frozen or have no signal. The shop opens as long as something is in stock; he still says the sold-out, frozen or no-signal line when the weather deals are closed.
 - **Getting hit** (Martin chose lightning):
   - When a player hits him (melee, or a projectile they shot), a lightning bolt strikes right next to that player, 1 to 2 blocks away, not on them. It has the flash and the thunder sound.
   - The bolt is visual only: no damage, no fire, no charged creepers, no pigs turning into piglins, no villagers turning into witches.
@@ -93,6 +101,8 @@ Bård is a friend of the group: a blonde guy of average height with a big butt. 
   - Only one weather change per day, not several.
   - Lightning when hit.
   - "yes do this" to the rest of the list on 2026-11-25.
+  - He also sells his homemade bread, his own item with no recipe.
+  - In all text, "deg" is written "dej".
 - **My calls (Martin can change them):**
   - the rain jacket and jeans
   - forecast every 2 to 4 minutes, plus when the shop opens

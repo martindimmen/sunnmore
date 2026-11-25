@@ -30,6 +30,7 @@ public final class BardLines {
 		BOUGHT_SOL(1),
 		BOUGHT_REGN(1),
 		BOUGHT_TORDEN(1),
+		BOUGHT_BROD(2),
 		SOLDOUT(1),
 		FROZEN(1),
 		NO_SIGNAL(1),
